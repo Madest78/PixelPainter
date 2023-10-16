@@ -23,8 +23,8 @@ canvas.addEventListener('mousedown',function(event){
     const line = [];
     lines.push(line);
     isDrawing = true
-    const x = Math.floor(event.clientX / cellSize);
-    const y = Math.floor(event.clientY / cellSize);
+    const x = Math.floor(event.offsetX / cellSize);
+    const y = Math.floor(event.offsetY / cellSize);
     line.push({ x, y });
     redrawLines();
 });
@@ -42,8 +42,8 @@ canvas.addEventListener('click', function(event){
 canvas.addEventListener('mousemove', function(event){
     if(isDrawing){
         const canvasRect = canvas.getBoundingClientRect();
-        const x = Math.floor(event.clientX / cellSize);
-        const y = Math.floor(event.clientY / cellSize);
+        const x = Math.floor(event.offsetX / cellSize);
+        const y = Math.floor(event.offsetY / cellSize);
         lines[lines.length - 1].push({ x, y });
         redrawLines();
     }
