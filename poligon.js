@@ -27,8 +27,10 @@ canvas.addEventListener('mousedown',function(event){
     const y = Math.floor(event.offsetY / cellSize);
     line.push({ x, y });
     redrawLines();
+    lastX = x;
+    lastY = y;
 });
-/*
+
 canvas.addEventListener('click', function(event){
     const canvasRect = canvas.getBoundingClientRect();
     const x = Math.floor((event.clientX - canvasRect.left) / cellSize);
@@ -38,19 +40,26 @@ canvas.addEventListener('click', function(event){
     lines.push(line);
     redrawLines();
 });
-*/
+
 canvas.addEventListener('mousemove', function(event){
     if(isDrawing){
         const canvasRect = canvas.getBoundingClientRect();
         const x = Math.floor(event.offsetX / cellSize);
         const y = Math.floor(event.offsetY / cellSize);
+        if (x === lastX && y === lastY){
+            return;
+        }
         lines[lines.length - 1].push({ x, y });
         redrawLines();
+        lastX = x;
+        lastY = y;
     }
 });
 
 canvas.addEventListener('mouseup', function(event){
     isDrawing = false;
+    lastX = 0;
+    lastY = 0;
 });
 
 function drawLine(startX, startY, endX, endY, color) {
