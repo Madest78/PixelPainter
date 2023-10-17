@@ -113,3 +113,12 @@ canvas.addEventListener('mouseenter', function() {
 canvas.addEventListener('mouseleave', function() {
   canvas.style.cursor = 'crosshair';
 });
+
+const colors = document.querySelectorAll('.color');
+
+colors.forEach(color => {
+    color.addEventListener('click', function() {
+        const selectedColor = color.style.backgroundColor;
+        // Добавь здесь логику для использования выбранного цвета
+    });
+});
