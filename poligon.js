@@ -29,8 +29,17 @@ canvas.addEventListener('mousedown',function(event){
     redrawLines();
     lastX = x;
     lastY = y;
-});
 
+    canvas.addEventListener('click', clickHandler);
+
+    function clickHandler(event){
+        const x = Math.floor(event.offsetX / cellSize);
+        const y = Math.floor(event.offsetY / cellSize);
+        lines[lines.length - 1].push({ x, y });
+        redrawLines();
+    }
+});
+/*
 canvas.addEventListener('click', function(event){
     const canvasRect = canvas.getBoundingClientRect();
     const x = Math.floor((event.clientX - canvasRect.left) / cellSize);
@@ -40,9 +49,10 @@ canvas.addEventListener('click', function(event){
     lines.push(line);
     redrawLines();
 });
+*/
 
-canvas.addEventListener('mousemove', function(event){
-    if(isDrawing){
+canvas.addEventListener('mousemove', function(event) {
+    if (isDrawing) {
         const canvasRect = canvas.getBoundingClientRect();
         const x = Math.floor(event.offsetX / cellSize);
         const y = Math.floor(event.offsetY / cellSize);
@@ -60,6 +70,7 @@ canvas.addEventListener('mouseup', function(event){
     isDrawing = false;
     lastX = 0;
     lastY = 0;
+    canvas.removeEventListener('click', clickhandler);
 });
 
 function drawLine(startX, startY, endX, endY, color) {
@@ -112,6 +123,14 @@ canvas.addEventListener('mouseenter', function() {
 
 canvas.addEventListener('mouseleave', function() {
   canvas.style.cursor = 'crosshair';
+});
+
+canvas.addEventListener('click', function(event) {
+    const x = Math.floor(event.offsetX / cellSize);
+    const y = Math.floor(event.offsetY / cellSize);
+    lines.push([{ x, y }]);
+    redrawLines();
+    
 });
 
 const colors = document.querySelectorAll('.color');
